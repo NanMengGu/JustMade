@@ -6,46 +6,24 @@ using System;
 
 public class SpectrumWindowsScale : MonoBehaviour
 {
-    private IntPtr windowHandle;
+    private IntPtr hWnd;
     public string WindowName;
     public AudioSource audioSource;
     public float size;
     public int sampleCount;
     private float[] sample = new float[64];
     private Win32API.RECT rect;
-    private int centerX;
-    private int centerY;
-
-    void Start()
-    {
-        windowHandle = Win32API.FindWindow(WindowName, WindowName);
-        if (windowHandle == IntPtr.Zero)
-        {
-            LogWin32Error();
-        }
-    }
-
-    private void LogWin32Error()
-    {
-        int errorCode = Marshal.GetLastWin32Error();
-        string errorMessage = new System.ComponentModel.Win32Exception(errorCode).Message;
-        Debug.LogError($"Win32 Error Code: {errorCode}, Message: {errorMessage}");
-    }
 
     void Update()
     {
-        windowHandle = Win32API.FindWindow(WindowName, WindowName);
-        if (windowHandle == IntPtr.Zero)
-        {
-            LogWin32Error();
-        }
-        Win32API.GetWindowRect(windowHandle, out rect);
+        if (hWnd == IntPtr.Zero) hWnd = Win32API.FindWindow(WindowName, WindowName);
+        Win32API.GetWindowRect(hWnd, out rect);
 
         audioSource.GetSpectrumData(sample, 0, FFTWindow.BlackmanHarris);
         
         int newWidth = Mathf.RoundToInt(sample[sampleCount] * size);
         int newHeight = Mathf.RoundToInt(sample[sampleCount] * size);
 
-        Win32API.MoveWindow(windowHandle, rect.Left, rect.Top, 150, newHeight, true);
+        Win32API.MoveWindow(hWnd, rect.Left, rect.Top, 150, newHeight, true);
     }
 }

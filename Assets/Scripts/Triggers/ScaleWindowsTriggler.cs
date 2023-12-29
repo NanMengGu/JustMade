@@ -4,8 +4,9 @@ using System;
 
 public class ScaleWindowsTrigger : MonoBehaviour
 {
-    private IntPtr windowHandle;
+    private IntPtr hWnd;
     public EasingFunctions.EasingType easingType; // 인스펙터에서 선택
+    public string WindowName;
     public int targetWidth;   // 목표 너비
     public int targetHeight;  // 목표 높이
     public float time;        // 시간을 초 단위로 변경
@@ -14,13 +15,13 @@ public class ScaleWindowsTrigger : MonoBehaviour
 
     void Awake()
     {
-        windowHandle = Win32API.GetActiveWindow();
+        hWnd = Win32API.FindWindow(WindowName, WindowName);
         UpdateCurrentRect();  // 현재 윈도우 상태 업데이트
     }
 
     private void UpdateCurrentRect()
     {
-        if (Win32API.GetWindowRect(windowHandle, out Win32API.RECT rect))
+        if (Win32API.GetWindowRect(hWnd, out Win32API.RECT rect))
         {
             currentRect = rect;
         }
@@ -28,6 +29,7 @@ public class ScaleWindowsTrigger : MonoBehaviour
 
     public void TriggerMovement()
     {
+        if (hWnd == IntPtr.Zero) hWnd = Win32API.FindWindow(WindowName, WindowName);
         StartCoroutine(ScaleWindowCoroutine());
     }
 
@@ -54,14 +56,14 @@ public class ScaleWindowsTrigger : MonoBehaviour
             int newX = startX - (newWidth - startWidth) / 2;
             int newY = startY - (newHeight - startHeight) / 2;
 
-            Win32API.MoveWindow(windowHandle, newX, newY, newWidth, newHeight, true);
+            Win32API.MoveWindow(hWnd, newX, newY, newWidth, newHeight, true);
             yield return null;
         }
 
         // 최종 크기와 위치 설정
         int finalX = startX - (targetWidth - startWidth) / 2;
         int finalY = startY - (targetHeight - startHeight) / 2;
-        Win32API.MoveWindow(windowHandle, finalX, finalY, startWidth + targetWidth, startHeight + targetHeight, true);
+        Win32API.MoveWindow(hWnd, finalX, finalY, startWidth + targetWidth, startHeight + targetHeight, true);
     }
     void OnTriggerEnter(Collider other)
     {

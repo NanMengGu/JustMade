@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MoveWindowsTrigger : MonoBehaviour
 {
-    private IntPtr windowHandle;
+    private IntPtr hWnd;
+    public string WindowName;
     public int x;
     public int y;
     public EasingFunctions.EasingType easingType; // 인스펙터에서 선택
@@ -12,21 +13,18 @@ public class MoveWindowsTrigger : MonoBehaviour
 
     void Awake()
     {
-        windowHandle = Win32API.GetActiveWindow();
-        if (windowHandle == IntPtr.Zero)
-        {
-            Debug.LogError("Active Window를 찾을 수 없습니다.");
-        }
+        hWnd = Win32API.GetActiveWindow();
     }
 
     public void TriggerMovement()
     {
+        hWnd = Win32API.FindWindow(WindowName, WindowName);
         StartCoroutine(MoveWindowCoroutine());
     }
 
     private IEnumerator MoveWindowCoroutine()
     {
-        Win32API.GetWindowRect(windowHandle, out Win32API.RECT rect);
+        Win32API.GetWindowRect(hWnd, out Win32API.RECT rect);
 
         int startX = rect.Left;
         int startY = rect.Top;
@@ -39,10 +37,10 @@ public class MoveWindowsTrigger : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / time;
             t = EasingFunctions.GetEasingFunction(easingType, t);
-            Win32API.MoveWindow(windowHandle, Mathf.RoundToInt(startX + x * t), Mathf.RoundToInt(startY + y * t), width, height, true);
+            Win32API.MoveWindow(hWnd, Mathf.RoundToInt(startX + x * t), Mathf.RoundToInt(startY + y * t), width, height, true);
             yield return null;
         }
-        Win32API.MoveWindow(windowHandle, startX + x, startY + y, width, height, true);
+        Win32API.MoveWindow(hWnd, startX + x, startY + y, width, height, true);
     }
 
     void OnTriggerEnter(Collider other)
