@@ -536,7 +536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a414f53633fcf940bbdb1c78e33ff83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  easingType: 12
+  easingType: 4
   movement: {x: 0, y: 5}
   duration: 1
   targetObject: {fileID: 1222039382}

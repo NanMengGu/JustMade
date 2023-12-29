@@ -32,7 +32,7 @@ public class MoveTrigger : MonoBehaviour
         while (elapsedTime < duration)
         {
             elapsedTime += Time.fixedDeltaTime;
-            float normalizedTime = elapsedTime / duration;
+            float normalizedTime = Mathf.Clamp01(elapsedTime / duration);
             float easedTime = EasingFunctions.GetEasingFunction(easingType, normalizedTime);
 
             float currentMovementX = Mathf.Lerp(initialMovementX, targetMovementX, easedTime);
