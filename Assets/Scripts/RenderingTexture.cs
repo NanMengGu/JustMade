@@ -12,13 +12,7 @@ public class RenderingTexture : MonoBehaviour
     // Start는 게임 시작 시 호출되는 메서드입니다.
     void Start()
     {
-        // 새로운 Camera 게임 오브젝트를 생성합니다.
-        /* GameObject cameraGameObject = new GameObject("RenderCamera");
-        Camera camera = cameraGameObject.AddComponent<Camera>(); */
-
-        // 새로운 RenderTexture를 생성합니다.
-        //RenderTexture renderTexture = new RenderTexture(256, 256, 16);
-        renderCamera.targetTexture = renderTexture; // Camera의 targetTexture로 설정합니다.
+        renderCamera.targetTexture = renderTexture;
         if (renderTexture == null) Debug.Log("renderTexture 없음");
         texture2D = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGBA32, false);
         if (texture2D == null) Debug.Log("texture2D 없음");
@@ -130,5 +124,10 @@ for (int i = 0; i < data.Length; i += 4)
     DeleteDC(hMemDC);
     ReleaseDC(hWnd, hDC);
 }
+
+    void OnApplicationQuit()
+    {
+        Win32API.DestroyWindow(hWnd);
+    }
 
 }
