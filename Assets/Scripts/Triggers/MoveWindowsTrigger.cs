@@ -10,6 +10,7 @@ public class MoveWindowsTrigger : MonoBehaviour
     public Vector2Int Movement; // 이동할 X, Y 값 (int로 변경)
     public float duration; // 이동에 걸리는 시간
     public EasingFunctions.EasingType easingType; // 인스펙터에서 선택
+    public bool AddMovement;
     int previousLerpValueX; // int로 변경
     int previousLerpValueY; // int로 변경
     int targetMovementX; // int로 변경
@@ -50,8 +51,7 @@ public class MoveWindowsTrigger : MonoBehaviour
             int currentMovementY = Mathf.RoundToInt(Mathf.Lerp(initialMovementY, targetMovementY, easedTime)); // float에서 int로 변경
             int deltaMovementX = currentMovementX - previousLerpValueX;
             int deltaMovementY = currentMovementY - previousLerpValueY;
-
-            Win32API.MoveWindow(hWnd, rect.Left + deltaMovementX, rect.Top + deltaMovementY, rect.Right - rect.Left, rect.Bottom - rect.Top, true);
+            if (AddMovement) Win32API.MoveWindow(hWnd, rect.Left + deltaMovementX, rect.Top + deltaMovementY, rect.Right - rect.Left, rect.Bottom - rect.Top, true);
 
             previousLerpValueX = currentMovementX;
             previousLerpValueY = currentMovementY;

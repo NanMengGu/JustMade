@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor; // Handles를 사용하기 위해 추가
 
 public class BPMLineCreator : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class BPMLineCreator : MonoBehaviour
 
             Gizmos.color = color; // 라인 색상 설정
             Gizmos.DrawLine(start, end); // 라인 그리기
+
+            // 선 아래에 x 좌표 레이블 추가
+            Handles.Label(new Vector3(positionX - 0.025f, -1, 0), positionX.ToString());
         }
     }
 
