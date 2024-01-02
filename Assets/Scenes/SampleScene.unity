@@ -247,7 +247,7 @@ MonoBehaviour:
   Movement: {x: 500, y: 500}
   duration: 0.25
   easingType: 2
-  AddMovement: 1
+  SetMovement: 1
 --- !u!114 &189929120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,7 +264,7 @@ MonoBehaviour:
   Movement: {x: 500, y: 500}
   duration: 0.25
   easingType: 2
-  AddMovement: 1
+  SetMovement: 1
 --- !u!114 &189929121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,7 +281,7 @@ MonoBehaviour:
   Movement: {x: 500, y: 500}
   duration: 0.25
   easingType: 2
-  AddMovement: 1
+  SetMovement: 1
 --- !u!114 &189929122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,7 +298,7 @@ MonoBehaviour:
   Movement: {x: 500, y: 500}
   duration: 0.25
   easingType: 2
-  AddMovement: 1
+  SetMovement: 1
 --- !u!65 &189929123
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -318,7 +318,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0, y: 1, z: 1}
+  m_Size: {x: 0.2, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &429534485
 GameObject:
@@ -336,7 +336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &429534486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,7 +560,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0, y: 1, z: 1}
+  m_Size: {x: 0.2, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1043472897
 GameObject:
@@ -651,7 +651,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0, y: 1, z: 1}
+  m_Size: {x: 0.2, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1043472902
 MonoBehaviour:
@@ -752,7 +752,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0, y: 1, z: 1}
+  m_Size: {x: 0.2, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1153535922
 GameObject:
@@ -1094,7 +1094,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0, y: 1, z: 1}
+  m_Size: {x: 0.2, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1302972413
 MonoBehaviour:
@@ -1125,7 +1125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1453077046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1188,7 +1188,7 @@ MonoBehaviour:
   bpm: 120
   bpb: 1
   referenceDistance: 10
-  maxLineCount: 300
+  maxLineCount: 50
   color: {r: 0, g: 0, b: 1, a: 1}
 --- !u!114 &1470562208
 MonoBehaviour:
@@ -1205,7 +1205,7 @@ MonoBehaviour:
   bpm: 120
   bpb: 2
   referenceDistance: 10
-  maxLineCount: 300
+  maxLineCount: 50
   color: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &1470562209
 MonoBehaviour:
@@ -1222,7 +1222,7 @@ MonoBehaviour:
   bpm: 120
   bpb: 3
   referenceDistance: 10
-  maxLineCount: 300
+  maxLineCount: 50
   color: {r: 1, g: 0, b: 0, a: 1}
 --- !u!4 &1470562210
 Transform:
@@ -1233,7 +1233,7 @@ Transform:
   m_GameObject: {fileID: 1470562206}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6184905, y: -0.4361347, z: -43.361496}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1372,7 +1372,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0, y: 1, z: 1}
+  m_Size: {x: 0.2, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1580615151
 GameObject:

@@ -29,7 +29,7 @@ public class MoveTrigger : MonoBehaviour
 
     IEnumerator MoveObject()
     {
-        while (elapsedTime < duration)
+        while (elapsedTime <= duration)
         {
             elapsedTime += Time.fixedDeltaTime;
             float normalizedTime = Mathf.Clamp01(elapsedTime / duration);

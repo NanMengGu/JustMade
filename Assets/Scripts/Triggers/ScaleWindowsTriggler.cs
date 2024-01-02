@@ -9,6 +9,7 @@ public class ScaleWindowsTrigger : MonoBehaviour
     public Vector2Int Size;
     public float duration;        // 시간을 초 단위로 변경
     public EasingFunctions.EasingType easingType; // 인스펙터에서 선택
+    public bool SetSize;
     public bool isTopLeftAnchor;
     int previousLerpValueX; // int로 변경
     int previousLerpValueY; // int로 변경
@@ -29,8 +30,16 @@ public class ScaleWindowsTrigger : MonoBehaviour
         Win32API.GetWindowRect(hWnd, out Win32API.RECT rect);
         initialSizeX = rect.Left;
         initialSizeY = rect.Top;
-        targetSizeX = initialSizeX + Size.x;
-        targetSizeY = initialSizeY + Size.y;
+        if (SetSize)
+        {
+            targetSizeX = Size.x;
+            targetSizeY = Size.y;
+        }
+        else
+        {
+            targetSizeX = initialSizeX + Size.x;
+            targetSizeY = initialSizeY + Size.y;
+        }
         previousLerpValueX = initialSizeX;
         previousLerpValueY = initialSizeY;
         elapsedTime = 0;
@@ -40,7 +49,7 @@ public class ScaleWindowsTrigger : MonoBehaviour
 
     private IEnumerator ScaleWindowCoroutine()
     {
-        while (elapsedTime < duration)
+        while (elapsedTime <= duration)
         {
             Win32API.GetWindowRect(hWnd, out Win32API.RECT rect);
             elapsedTime += Time.fixedDeltaTime;
@@ -52,13 +61,16 @@ public class ScaleWindowsTrigger : MonoBehaviour
             int deltaSizeX = currentSizeX - previousLerpValueX;
             int deltaSizeY = currentSizeY - previousLerpValueY;
 
-            if (isTopLeftAnchor) Win32API.MoveWindow(hWnd, rect.Left, rect.Top, rect.Right + deltaSizeX - rect.Left, rect.Bottom + deltaSizeY - rect.Top,true);
+            if (isTopLeftAnchor) 
+            {
+                Win32API.MoveWindow(hWnd, rect.Left, rect.Top, rect.Right + deltaSizeX - rect.Left, rect.Bottom + deltaSizeY - rect.Top,true);
+            }
             else
-        {
-            int newLeft = rect.Left - deltaSizeX / 2;
-            int newTop = rect.Top - deltaSizeY / 2;
-            Win32API.MoveWindow(hWnd, newLeft, newTop, rect.Right - rect.Left + deltaSizeX, rect.Bottom - rect.Top + deltaSizeY, true);
-        }
+            {
+                int newLeft = rect.Left - deltaSizeX / 2;
+                int newTop = rect.Top - deltaSizeY / 2;
+                Win32API.MoveWindow(hWnd, newLeft, newTop, rect.Right - rect.Left + deltaSizeX, rect.Bottom - rect.Top + deltaSizeY, true);
+            }
 
             previousLerpValueX = currentSizeX;
             previousLerpValueY = currentSizeY;

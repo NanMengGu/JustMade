@@ -25,7 +25,7 @@ public class BPMLineCreator : MonoBehaviour
             Gizmos.DrawLine(start, end); // 라인 그리기
 
             // 선 아래에 x 좌표 레이블 추가
-            Handles.Label(new Vector3(positionX - 0.025f, -1, 0), positionX.ToString());
+            //Handles.Label(new Vector3(positionX - 0.025f, -1, 0), positionX.ToString());
         }
     }
 
