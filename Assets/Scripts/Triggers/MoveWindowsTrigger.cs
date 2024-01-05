@@ -17,6 +17,8 @@ public class MoveWindowsTrigger : MonoBehaviour
     int initialMovementX; // int로 변경
     int initialMovementY; // int로 변경
     float elapsedTime = 0;
+    int monitorX = Win32API.GetSystemMetrics(0) / 10; // 10으로 가정
+    int monitorY = Win32API.GetSystemMetrics(1) / 10; // 10으로 가정
 
     public void TriggerMovement()
     {
@@ -33,6 +35,8 @@ public class MoveWindowsTrigger : MonoBehaviour
             targetMovementX = initialMovementX + Movement.x;
             targetMovementY = initialMovementY + Movement.y;
         }
+        targetMovementX = (targetMovementX * monitorX);
+        targetMovementY = (targetMovementY * monitorY);
         previousLerpValueX = initialMovementX;
         previousLerpValueY = initialMovementY;
         elapsedTime = 0;

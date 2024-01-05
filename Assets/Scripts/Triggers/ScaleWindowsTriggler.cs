@@ -18,6 +18,8 @@ public class ScaleWindowsTrigger : MonoBehaviour
     int initialSizeX; // int로 변경
     int initialSizeY; // int로 변경
     float elapsedTime = 0;
+    int monitorX = Win32API.GetSystemMetrics(0) / 10; // 10으로 가정
+    int monitorY = Win32API.GetSystemMetrics(1) / 10; // 10으로 가정
 
     void Awake()
     {
@@ -40,6 +42,8 @@ public class ScaleWindowsTrigger : MonoBehaviour
             targetSizeX = initialSizeX + Size.x;
             targetSizeY = initialSizeY + Size.y;
         }
+        targetSizeX = (targetSizeX * monitorX);
+        targetSizeY = (targetSizeY * monitorY);
         previousLerpValueX = initialSizeX;
         previousLerpValueY = initialSizeY;
         elapsedTime = 0;

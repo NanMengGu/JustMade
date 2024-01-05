@@ -15,6 +15,13 @@ public class CreateWindowTrigger : MonoBehaviour
     private Camera newCamera;
     private RenderTexture newRenderTexture;
     private RenderingTexture renderingTexture;
+    int monitorX = Win32API.GetSystemMetrics(0) / 10; // 10으로 가정
+    int monitorY = Win32API.GetSystemMetrics(1) / 10; // 10으로 가정
+    
+    void Awake()
+    {
+        Debug.Log($"{monitorX}, {monitorY}");
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -44,6 +51,10 @@ public class CreateWindowTrigger : MonoBehaviour
 
     public void CreateWindow()
     {
+        x = (x * monitorX);
+        y = (y * monitorY);
+        nWidth = (nWidth * monitorX);
+        nHeight = (nHeight * monitorY);
         DefWindowProcDelegate defWndProcDel = new DefWindowProcDelegate(Win32API.DefWindowProc);
         RegisterWindowClass(WindowName, Marshal.GetFunctionPointerForDelegate(defWndProcDel));
         int dwExStyle = 0; // 확장 스타일 기본값

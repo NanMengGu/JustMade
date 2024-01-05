@@ -128,4 +128,6 @@ public class Win32API
     private static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
     [DllImport("user32.dll", SetLastError = true)]
     public static extern bool UnregisterClass(string lpClassName, IntPtr hInstance);
+    [DllImport("user32.dll")]
+    public static extern int GetSystemMetrics(int nIndex);
 }
