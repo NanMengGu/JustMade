@@ -16,13 +16,6 @@ public class CreateWindowTrigger : MonoBehaviour
     private RenderTexture newRenderTexture;
     private RenderingTexture renderingTexture;
 
-    /* void Awake()
-    {
-        CreateWindow();
-        CreateCamera();
-    } */
-
-
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "line")
@@ -54,7 +47,7 @@ public class CreateWindowTrigger : MonoBehaviour
         DefWindowProcDelegate defWndProcDel = new DefWindowProcDelegate(Win32API.DefWindowProc);
         RegisterWindowClass(WindowName, Marshal.GetFunctionPointerForDelegate(defWndProcDel));
         int dwExStyle = 0; // 확장 스타일 기본값
-        int dwStyle = Win32API.WS_OVERLAPPEDWINDOW; // 스타일 기본값
+        int dwStyle = Win32API.WS_OVERLAPPEDWINDOW & ~Win32API.WS_THICKFRAME; // 스타일 기본값
         IntPtr hWndParent = IntPtr.Zero; // 부모 윈도우 핸들 기본값
         IntPtr hMenu = IntPtr.Zero; // 메뉴 핸들 기본값
         IntPtr hInstance = IntPtr.Zero; // 인스턴스 핸들 기본값
@@ -77,10 +70,6 @@ public class CreateWindowTrigger : MonoBehaviour
         {
             LogWin32Error();
         }
-        /* else
-        {
-            Debug.Log($"만들어짐 {hWnd}");
-        } */
     }
 
     private void RegisterWindowClass(string className, IntPtr wndProc)
