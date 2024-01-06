@@ -31,7 +31,7 @@ public class MoveTrigger : MonoBehaviour
     {
         while (elapsedTime <= duration)
         {
-            elapsedTime += Time.fixedDeltaTime;
+            elapsedTime += Time.deltaTime;
             float normalizedTime = Mathf.Clamp01(elapsedTime / duration);
             float easedTime = EasingFunctions.GetEasingFunction(easingType, normalizedTime);
 

@@ -121,6 +121,7 @@ public class Win32API
     public const int WS_THICKFRAME = 0x00040000;
     public const int WS_MINIMIZEBOX = 0x00020000;
     public const int WS_MAXIMIZEBOX = 0x00010000;
+    public const int WS_BORDER = 0x00800000;
     public const int WS_OVERLAPPEDWINDOW = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX;
     private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 

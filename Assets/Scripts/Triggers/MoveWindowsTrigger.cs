@@ -10,6 +10,7 @@ public class MoveWindowsTrigger : MonoBehaviour
     public float duration; // 이동에 걸리는 시간
     public EasingFunctions.EasingType easingType; // 인스펙터에서 선택
     public bool SetMovement;
+    public bool isTopLeftAnchor;
     int previousLerpValueX; // int로 변경
     int previousLerpValueY; // int로 변경
     int targetMovementX; // int로 변경
@@ -35,8 +36,16 @@ public class MoveWindowsTrigger : MonoBehaviour
             targetMovementX = initialMovementX + Movement.x;
             targetMovementY = initialMovementY + Movement.y;
         }
-        targetMovementX = (targetMovementX * monitorX);
-        targetMovementY = (targetMovementY * monitorY);
+        if (!isTopLeftAnchor)
+        {
+            targetMovementX = (targetMovementX * monitorX) - ((rect.Right - rect.Left) * monitorX / 2);
+            targetMovementY = (targetMovementY * monitorY) - ((rect.Bottom - rect.Top) * monitorY / 2);
+        }
+        else
+        {
+            targetMovementX = (targetMovementX * monitorX);
+            targetMovementY = (targetMovementY * monitorY);
+        }
         previousLerpValueX = initialMovementX;
         previousLerpValueY = initialMovementY;
         elapsedTime = 0;
@@ -48,7 +57,7 @@ public class MoveWindowsTrigger : MonoBehaviour
         while (elapsedTime <= duration)
         {
             Win32API.GetWindowRect(hWnd, out Win32API.RECT rect);
-            elapsedTime += Time.fixedDeltaTime;
+            elapsedTime += Time.deltaTime;
             float normalizedTime = Mathf.Clamp01(elapsedTime / duration);
             float easedTime = EasingFunctions.GetEasingFunction(easingType, normalizedTime);
 

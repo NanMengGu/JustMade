@@ -12,21 +12,39 @@ public class CreateWindowTrigger : MonoBehaviour
     public string WindowName;
     public IntPtr hWnd;
     public delegate IntPtr DefWindowProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+    public bool isTopLeftAnchor;
     private Camera newCamera;
     private RenderTexture newRenderTexture;
     private RenderingTexture renderingTexture;
-    int monitorX = Win32API.GetSystemMetrics(0) / 10; // 10으로 가정
-    int monitorY = Win32API.GetSystemMetrics(1) / 10; // 10으로 가정
+    int monitorX = Win32API.GetSystemMetrics(0) / 16; // 10으로 가정
+    int monitorY = Win32API.GetSystemMetrics(1) / 9; // 10으로 가정
     
     void Awake()
     {
         Debug.Log($"{monitorX}, {monitorY}");
     }
 
+    void SetValues()
+    {
+        if (!isTopLeftAnchor)
+        {
+            x = (x * monitorX) - (nWidth * monitorX / 2);
+            y = (y * monitorY) - (nHeight * monitorY / 2);
+        }
+        else
+        {
+            x = (x * monitorX);
+            y = (y * monitorY);
+        }
+        nWidth = (nWidth * monitorX);
+        nHeight = (nHeight * monitorY);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "line")
         {
+            SetValues();
             CreateWindow();
             CreateCamera();
         }
@@ -41,7 +59,7 @@ public class CreateWindowTrigger : MonoBehaviour
         capsule.transform.position = new Vector2(x, y);
         newCamera = cameraObject.AddComponent<Camera>();
         renderingTexture = cameraObject.AddComponent<RenderingTexture>();
-        newRenderTexture = new RenderTexture(nWidth - 5, nHeight - 5, 24);
+        newRenderTexture = new RenderTexture(nWidth, nHeight, 24);
 
         renderingTexture.WindowName = WindowName;
         renderingTexture.renderCamera = newCamera;
@@ -51,14 +69,10 @@ public class CreateWindowTrigger : MonoBehaviour
 
     public void CreateWindow()
     {
-        x = (x * monitorX);
-        y = (y * monitorY);
-        nWidth = (nWidth * monitorX);
-        nHeight = (nHeight * monitorY);
         DefWindowProcDelegate defWndProcDel = new DefWindowProcDelegate(Win32API.DefWindowProc);
         RegisterWindowClass(WindowName, Marshal.GetFunctionPointerForDelegate(defWndProcDel));
         int dwExStyle = 0; // 확장 스타일 기본값
-        int dwStyle = Win32API.WS_OVERLAPPEDWINDOW & ~Win32API.WS_THICKFRAME; // 스타일 기본값
+        int dwStyle = Win32API.WS_OVERLAPPEDWINDOW & ~Win32API.WS_THICKFRAME & ~Win32API.WS_CAPTION & Win32API.WS_BORDER; // 스타일 기본값
         IntPtr hWndParent = IntPtr.Zero; // 부모 윈도우 핸들 기본값
         IntPtr hMenu = IntPtr.Zero; // 메뉴 핸들 기본값
         IntPtr hInstance = IntPtr.Zero; // 인스턴스 핸들 기본값
